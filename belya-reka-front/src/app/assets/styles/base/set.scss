@@ -1,0 +1,238 @@
+:root {
+  --br-radius-lg: 54px;
+  --br-br-radius-md: 48px;
+  --br-br-radius-sm: 24px;
+  --br-br-radius-custom: 100%;
+
+  --br-color-transparent: transparent;
+  --br-color-light: #ffffff;
+  // --br-color-tertiary: #1b1b1b;
+  --br-color-jet-black: #252525;
+  // --br-color-gray: #e3e3e3;
+  // --br-color-scarlet: #e31717;
+  --br-color-elephant: #ddd;
+  --br-color-silver: #f7f7f7;
+  --br-color-snow: #eeeeee;
+  --br-color-ghost: #828282;
+  --br-color-main: #eceef3;
+  --br-color-air: #f1f1f1;
+
+  --br-color-hexahrome: #00afef;
+
+  --br-fontSize-xs: 12px;
+  --br-fontSize-sm: 14px;
+  --br-fontSize-default: 16px;
+  --br-fontSize-md: 18px;
+  --br-fontSize-lg: 25px;
+  --br-fontSize-xl: 100px;
+
+  --br-border-style-sm: 1px solid var(--mnstr-color-tertiary);
+}
+
+button {
+  cursor: pointer;
+}
+
+.custom-container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 200px;
+}
+@media (max-width: 1600px) {
+  .custom-container {
+    padding: 0 150px;
+  }
+}
+@media (max-width: 1440px) {
+  .custom-container {
+    padding: 0 100px;
+  }
+}
+@media (max-width: 1025.99px) {
+  .custom-container {
+    padding: 0 100px;
+  }
+}
+@media (max-width: 768.98px) {
+  .custom-container {
+    padding: 0 50px;
+  }
+}
+@media (max-width: 660.98px) {
+  .custom-container {
+    padding: 0 20px;
+  }
+}
+
+/* Legend */
+.slm--legend-md {
+  font-family: Cocosignum;
+}
+
+/* Text */
+
+// 1440
+// 1330
+
+.br--text-xs {
+  color: var(--br-color-jet-black, #252525);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+.br-text-medium {
+  @apply font-medium text-[22px] text-jetblack;
+}
+
+// Dropdown
+.presscenter {
+  // .presscenter__filtred
+
+  &__filtred {
+    display: flex;
+    column-gap: 38px;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 100px;
+    margin-bottom: 50px;
+  }
+
+  // .presscenter__block
+
+  &__block {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  // .presscenter__dropdown
+  &__dropdown {
+    width: 100%;
+    max-width: 270px;
+
+    .Dropdown-control {
+      border-radius: 50px;
+      border: none !important;
+      background: #f7f7f7;
+
+      padding: 19px 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      column-gap: 10px;
+
+      transition: none;
+    }
+    //
+    .Dropdown-arrow-wrapper {
+      width: 10px;
+      position: relative;
+    }
+    .Dropdown-arrow {
+      top: 0;
+      right: 0;
+      position: static;
+    }
+    .Dropdown-menu {
+      border: none;
+      background-color: transparent;
+      border-left: 1px solid #eee;
+      border-right: 1px solid #eee;
+      border-radius: 0 0 30px 30px;
+    }
+    .Dropdown-option {
+      height: 50px;
+      border-bottom: 1px solid #eee;
+      background: #fff;
+
+      display: flex;
+      align-items: center;
+
+      padding: 0 32px;
+
+      &:last-child {
+        overflow: hidden;
+        border-radius: 25px 25px 0 0 !important;
+      }
+    }
+    .Dropdown-option {
+      &:last-child {
+        border-radius: 0 0 25px 25px !important;
+      }
+    }
+  }
+}
+
+.is-open {
+  .Dropdown-control {
+    border-radius: 25px 25px 0 0 !important;
+    color: var(--br-color-hexahrome);
+  }
+}
+.Dropdown-option.is-selected {
+  color: var(--br-color-hexahrome) !important;
+}
+
+button {
+  &:focus {
+    outline: none;
+    border: none;
+  }
+  &:focus-visible {
+    outline: none;
+    border: none;
+  }
+}
+
+a {
+  border-radius: 2px;
+  &:focus {
+    outline: none !important;
+    border: none !important;
+    // box-shadow: 0 0 0 1px rgb(0, 175, 239, 0.5);
+  }
+  &:focus-visible {
+    outline: none !important;
+    border: none !important;
+    // box-shadow: 0 0 0 1px rgb(0, 175, 239, 0.5);
+  }
+}
+
+// add tag a
+@font-face {
+  font-family: "Cocosignum";
+  font-style: normal;
+  font-weight: 700;
+  src: url("https://backend.monstrcorp.com/api/fonts/CocosignumCorsivoItalico-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Cocosignum";
+  font-style: normal;
+  font-weight: 200;
+  src: url("https://backend.monstrcorp.com/api/fonts/CocosignumCorsivoItalico-ULt.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Cocosignum";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://backend.monstrcorp.com/api/fonts/CocosignumCorsivoItalico-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Cocosignum";
+  font-style: normal;
+  font-weight: 300;
+  src: url("https://backend.monstrcorp.com/api/fonts/CocosignumCorsivoItalico-Lt.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Cocosignum";
+  font-style: normal;
+  font-weight: 900;
+  src: url("https://backend.monstrcorp.com/api/fonts/CocosignumCorsivoItalico-Hv.ttf") format("truetype");
+}

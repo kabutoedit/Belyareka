@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sales_districts",
+  "info": {
+    "singularName": "sales-district",
+    "pluralName": "sales-districts",
+    "displayName": "Карта / Районы"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "lat": {
+      "type": "float",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "lng": {
+      "type": "float",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "oblasti": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::sales-area.sales-area",
+      "inversedBy": "rajonies"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

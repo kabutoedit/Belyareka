@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "partner_requests",
+  "info": {
+    "singularName": "partner-request",
+    "pluralName": "partner-requests",
+    "displayName": "Партнерам / Форма"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "companyName": {
+      "type": "string"
+    },
+    "message": {
+      "type": "text"
+    }
+  }
+}

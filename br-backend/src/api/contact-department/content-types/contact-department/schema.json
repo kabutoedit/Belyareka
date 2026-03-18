@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "contact_departments",
+  "info": {
+    "singularName": "contact-department",
+    "pluralName": "contact-departments",
+    "displayName": "Контакты / Отделы"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "contact_cards": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::contact-card.contact-card",
+      "mappedBy": "department"
+    }
+  }
+}

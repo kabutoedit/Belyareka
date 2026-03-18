@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "aesthetics",
+  "info": {
+    "singularName": "aesthetic",
+    "pluralName": "aesthetics",
+    "displayName": "Youtube Reels"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "VideoId": {
+      "type": "string"
+    },
+    "Title": {
+      "type": "string"
+    }
+  }
+}

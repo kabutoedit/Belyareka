@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_contacts_contact_items",
+  "info": {
+    "displayName": "Контактная информация",
+    "description": "Адрес, телефон или email"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": ["address", "email", "phone"],
+      "default": "address"
+    },
+    "value": {
+      "type": "string",
+      "required": true
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}

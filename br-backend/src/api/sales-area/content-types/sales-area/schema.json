@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sales_areas",
+  "info": {
+    "singularName": "sales-area",
+    "pluralName": "sales-areas",
+    "displayName": "Карта / Области"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "lat": {
+      "type": "float",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "lng": {
+      "type": "float",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "rajonies": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sales-district.sales-district",
+      "mappedBy": "oblasti"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}
