@@ -20,7 +20,6 @@ const Logo = `${CDN_BASE}/assets/media/picture/logo.svg`;
 const LogoHalal = `${CDN_BASE}/assets/media/picture/HalalLogo.svg`;
 const jugBr = `${CDN_BASE}/assets/media/picture/jugBr.svg`;
 const milkFootgers = `${CDN_BASE}/assets/media/picture/milkFootgers.svg`;
-const monsdeveloper = `${CDN_BASE}/assets/media/picture/monsdeveloper.svg`;
 
 const SecondaryFooter: FC = () => {
   const location = useLocation();
