@@ -23,7 +23,7 @@ const AboutCompanySection: FC = () => {
 
   const sources = [
     {
-      src: aboutData?.video_url || "",
+      src: aboutData?.attributes.video_url || "",
       type: "video/mp4",
       size: 480,
     },
@@ -54,15 +54,19 @@ const AboutCompanySection: FC = () => {
         <div className="about__company flex items-start justify-between md:flex-nowrap flex-wrap">
           {/* Левая колонка */}
           <div className="about__title md:w-2/4 w-full">
-            <LegendBelyaReka className="font-cocosignum">{loading === "loading" ? "..." : aboutData?.title || "О КОМПАНИИ"}</LegendBelyaReka>
+            <LegendBelyaReka className="font-cocosignum">
+              {loading === "loading" ? "..." : aboutData?.attributes.title || "О КОМПАНИИ"}
+            </LegendBelyaReka>
 
-            <span className="br-text-medium mt-8 block leading-7 text-balance whitespace-pre-wrap">{aboutData?.subtitle || "заглушка текст"}</span>
+            <span className="br-text-medium mt-8 block leading-7 text-balance whitespace-pre-wrap">
+              {aboutData?.attributes.subtitle || "заглушка текст"}
+            </span>
           </div>
 
           {/* Правая колонка (Rich Text) */}
           <div className="2xl:mt-0 mt-4 w-full 2xl:w-5/12">
             <div className="about__descr br--text-xs text-gray-700 [&>p]:mb-4 [&>ul]:list-disc [&>ul]:ml-5 [&>strong]:font-bold">
-              <ReactMarkdown rehypePlugins={[rehypeRaw]}>{aboutData?.description || "заглушка текст"}</ReactMarkdown>
+              <ReactMarkdown rehypePlugins={[rehypeRaw]}>{aboutData?.attributes.description || "заглушка текст"}</ReactMarkdown>
             </div>
 
             <Link

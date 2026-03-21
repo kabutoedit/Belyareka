@@ -2,10 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { $api } from "../../../api";
 
 interface AboutData {
-  title: string;
-  subtitle: string;
-  description: string;
-  video_url: string;
+  attributes: {
+    title: string;
+    subtitle: string;
+    description: string;
+    video_url: string;
+  };
 }
 
 type InitialState = {
@@ -20,25 +22,21 @@ const initialState: InitialState = {
   error: null,
 };
 
-export const getAboutCompany = createAsyncThunk(
-  "aboutCompany/get",
-  async (lang: string = "ru", { rejectWithValue }) => {
-    try {
+export const getAboutCompany = createAsyncThunk("aboutCompany/get", async (lang: string = "ru", { rejectWithValue }) => {
+  try {
+    const response = await $api.get(`/about-block?locale=${lang}`);
+    const responseData = response.data;
 
-      const response = await $api.get(`/about-block?locale=${lang}`);
-      const responseData = response.data;
-
-      if (responseData.data) {
-        return responseData.data;
-      } else {
-        return null;
-      }
-    } catch (error: any) {
-      console.error("Ошибка загрузки About:", error);
-      return rejectWithValue(error.response?.data || "Ошибка загрузки");
+    if (responseData.data) {
+      return responseData.data;
+    } else {
+      return null;
     }
+  } catch (error: any) {
+    console.error("Ошибка загрузки About:", error);
+    return rejectWithValue(error.response?.data || "Ошибка загрузки");
   }
-);
+});
 
 const aboutCompanySlice = createSlice({
   name: "aboutCompany",

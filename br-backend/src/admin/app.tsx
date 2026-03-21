@@ -1,42 +1,42 @@
-import type { StrapiApp } from "@strapi/strapi/admin";
+import type { StrapiApp } from '@strapi/strapi/admin'
 
 const BELAYA_REKA_LOGO =
-  "https://belaya-reka-storage.fra1.digitaloceanspaces.com/assets/media/picture/logo.svg";
+	'https://belaya-reka-storage.fra1.digitaloceanspaces.com/assets/media/picture/logo.svg'
 const MONS_DEVELOPER_LOGO =
-  "https://belaya-reka-storage.fra1.digitaloceanspaces.com/assets/media/picture/monsdeveloper.svg";
+	'https://belaya-reka-storage.fra1.digitaloceanspaces.com/assets/media/picture/monsdeveloper.svg'
 
 export default {
-  config: {
-    locales: ["ru"],
-    auth: {
-      logo: BELAYA_REKA_LOGO,
-    },
-    menu: {
-      logo: BELAYA_REKA_LOGO,
-    },
-    translations: {
-      ru: {
-        "Auth.form.welcome.title": "Войдите в панель управления",
-        "Auth.form.welcome.subtitle": "Войдите в свою учетную запись Admin",
-      },
-      en: {
-        "Auth.form.welcome.title": "Войдите в панель управления",
-        "Auth.form.welcome.subtitle": "Войдите в свою учетную запись Admin",
-      },
-    },
-  },
-  bootstrap(app: StrapiApp) {
-    // Создаём элемент логотипа MonsDeveloper
-    const logoContainer = document.createElement("div");
-    logoContainer.id = "mons-developer-logo";
-    logoContainer.innerHTML = `
+	config: {
+		locales: ['ru'],
+		auth: {
+			logo: BELAYA_REKA_LOGO,
+		},
+		menu: {
+			logo: BELAYA_REKA_LOGO,
+		},
+		translations: {
+			ru: {
+				'Auth.form.welcome.title': 'Войдите в панель управления',
+				'Auth.form.welcome.subtitle': 'Войдите в свою учетную запись Admin',
+			},
+			en: {
+				'Auth.form.welcome.title': 'Войдите в панель управления',
+				'Auth.form.welcome.subtitle': 'Войдите в свою учетную запись Admin',
+			},
+		},
+	},
+	bootstrap(app: StrapiApp) {
+		// Создаём элемент логотипа MonsDeveloper
+		const logoContainer = document.createElement('div')
+		logoContainer.id = 'mons-developer-logo'
+		logoContainer.innerHTML = `
       <img src="${MONS_DEVELOPER_LOGO}" alt="MonsDeveloper" />
-    `;
-    document.body.appendChild(logoContainer);
+    `
+		document.body.appendChild(logoContainer)
 
-    // Добавляем стили
-    const style = document.createElement("style");
-    style.innerHTML = `
+		// Добавляем стили
+		const style = document.createElement('style')
+		style.innerHTML = `
       /* Контейнер логотипа MonsDeveloper */
       #mons-developer-logo {
         position: fixed;
@@ -72,28 +72,26 @@ export default {
           width: 100px;
         }
       }
-    `;
-    document.head.appendChild(style);
+    `
+		document.head.appendChild(style)
 
-    // Скрываем логотип когда пользователь в админке (не на странице входа)
-    const checkAndToggleLogo = () => {
-      const isAuthPage = window.location.pathname.includes("/auth/");
-      const logo = document.getElementById("mons-developer-logo");
-      if (logo) {
-        logo.style.display = isAuthPage ? "block" : "none";
-      }
-    };
+		// Скрываем логотип когда пользователь в админке (не на странице входа)
+		const checkAndToggleLogo = () => {
+			const isAuthPage = window.location.pathname.includes('/auth/')
+			const logo = document.getElementById('mons-developer-logo')
+			if (logo) {
+				logo.style.display = isAuthPage ? 'block' : 'none'
+			}
+		}
 
-    // Проверяем при загрузке и при изменении URL
-    checkAndToggleLogo();
-    window.addEventListener("popstate", checkAndToggleLogo);
+		// Проверяем при загрузке и при изменении URL
+		checkAndToggleLogo()
+		window.addEventListener('popstate', checkAndToggleLogo)
 
-    // Наблюдаем за изменениями URL (для SPA навигации)
-    const observer = new MutationObserver(() => {
-      checkAndToggleLogo();
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    console.log("Belaya Reka Admin initialized");
-  },
-};
+		// Наблюдаем за изменениями URL (для SPA навигации)
+		const observer = new MutationObserver(() => {
+			checkAndToggleLogo()
+		})
+		observer.observe(document.body, { childList: true, subtree: true })
+	},
+}

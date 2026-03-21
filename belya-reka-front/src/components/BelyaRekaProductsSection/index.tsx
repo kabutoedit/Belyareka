@@ -53,8 +53,6 @@ const BelyaRekaProductsSection: FC = () => {
   const [productStates, setProductStates] = useState(() => Array(filteredItemCatalog.length).fill(false));
   const [activeProductIndex, setActiveProductIndex] = useState<number | null>(null);
 
-  console.log(filteredItemCatalog.slice(0, -1));
-
   // Ref for Tag Swiper
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const swiperRef = useRef<any>(null);

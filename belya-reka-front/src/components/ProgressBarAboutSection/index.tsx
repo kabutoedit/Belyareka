@@ -42,7 +42,6 @@ export const ProgressBar: FC<IProgressBar> = ({ className = "", step, button }) 
   }, [activeStep, totalSteps]);
 
   const hiddenEndLineStep = stepsWithId.length - 1;
-  console.log(stepsWithId);
 
   const lineAnimation = (step: number): "completed" | "animate" | "incomplete" => {
     if (activeStep > step) {

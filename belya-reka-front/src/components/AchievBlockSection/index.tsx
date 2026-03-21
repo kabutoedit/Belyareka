@@ -77,9 +77,9 @@ const AchievBlockSection: FC = () => (
         />
       ))}
     </div>
-    <div className="mt-20 mb-10">
+    {/* <div className="mt-20 mb-10">
       <p className="text-3xl text-gray-500 text-center">Написать наши показатели и показатели партнёров​</p>
-    </div>
+    </div> */}
   </ContainerLayout>
 );
 

@@ -17,6 +17,7 @@ const prevBtn = `${CDN_BASE}/assets/media/svg/btn__prev.svg`;
 const nextBtn = `${CDN_BASE}/assets/media/svg/btn__next.svg`;
 
 import { $api, API_URL } from "../../api";
+import { log } from "console";
 
 interface CertificateImage {
   id: number;
@@ -38,20 +39,24 @@ const CertificateMainSection: FC = () => {
   useEffect(() => {
     $api
       .get("/certificate-block?populate=*&locale=ru")
-      .then((response: { data: { data: { title: string; description: string; images: CertificateImage[] } } }) => {
-        const result = response.data.data;
+      .then((response) => {
+        const result = response.data.data.attributes;
+
         if (result) {
           setData({
             title: result.title || "",
             description: result.description || "",
-            images: result.images || [],
+            images:
+              result.images?.data?.map((img: { id: number; attributes: { url: string; name: string } }) => ({
+                id: img.id,
+                url: img.attributes.url,
+                name: img.attributes.name,
+              })) || [],
           });
         }
       })
       .catch((err: Error) => console.error("Ошибка загрузки сертификатов:", err));
   }, []);
-
-  console.log(data);
 
   const certificates =
     data?.images.map((img) => ({

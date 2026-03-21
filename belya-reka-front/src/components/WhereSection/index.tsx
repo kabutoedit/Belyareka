@@ -3,9 +3,7 @@ import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
 import { useDispatch, useSelector } from "react-redux";
 
 import LegendBelyaReka from "common/LegendBelyaReka";
-// CDN Base URL for DigitalOcean Spaces
 const CDN_BASE = "https://belaya-reka-storage.fra1.digitaloceanspaces.com";
-
 const mapPinIcon = `${CDN_BASE}/assets/media/picture/map-pin.svg`;
 
 import LazyLoadLayout from "layout/LazyLoadLayout";
@@ -14,16 +12,10 @@ import { $api, API_URL } from "../../api";
 import { AppDispatch, RootState } from "store/index";
 import { getSalesPoints } from "store/slices/salesPointsSlice";
 
-// Интерфейс для торговых сетей (партнеров)
 interface Partner {
   id: number;
-  Name: string;
-  Logo?: {
-    url?: string;
-    data?: {
-      attributes?: { url: string };
-    };
-  };
+  name: string;
+  logoUrl: string | null;
 }
 
 const classActiveButton = "bg-hexahrome text-white";
@@ -50,27 +42,20 @@ const WhereBlock: FC = () => {
   const [partners, setPartners] = useState<Partner[]>([]);
 
   useEffect(() => {
-    // Загрузка районов для карты (Redux)
     dispatch(getSalesPoints("ru"));
 
-    // Загрузка логотипов партнеров (Strapi)
     $api
       .get("/partners?populate=*&sort=Order:asc")
       .then((response) => {
-        setPartners(response.data.data);
+        const mapped: Partner[] = response.data.data.map((item: any) => ({
+          id: item.id,
+          name: item.attributes.Name,
+          logoUrl: item.attributes.Logo?.data?.attributes?.url || null,
+        }));
+        setPartners(mapped);
       })
       .catch((err) => console.error("Ошибка API Partners:", err));
   }, [dispatch]);
-
-  // Загрузка торговых сетей из Strapi
-  useEffect(() => {
-    $api
-      .get("/partners?populate=*&sort=Order:asc")
-      .then((response) => {
-        setPartners(response.data.data);
-      })
-      .catch((err) => console.error("Error loading partners:", err));
-  }, []);
 
   function selectedButtonArea(coordinates: number[], title: string) {
     setCoor(coordinates);
@@ -79,7 +64,6 @@ const WhereBlock: FC = () => {
     if (title === "Все") {
       setActiveRaions([]);
     } else {
-      // Фильтруем районы по выбранной области
       const filteredDistricts = districts.filter((district) => district.areaTitle === title);
       setActiveRaions(filteredDistricts);
     }
@@ -147,9 +131,7 @@ const WhereBlock: FC = () => {
                 <Placemark geometry={coor} options={customIcon} />
               ) : (
                 <>
-                  {/* Метка самой области */}
                   <Placemark geometry={coor} options={customIcon} />
-                  {/* Метки районов области */}
                   {activeRaions.map((raion, index) => (
                     <Placemark key={index} geometry={raion.coor} options={customIcon} />
                   ))}
@@ -165,23 +147,13 @@ const WhereBlock: FC = () => {
       {/* Блок торговых сетей из Strapi */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 2xl:mt-0 mt-10 items-center justify-items-center">
         {partners.map((partner) => {
-          // Пытаемся достать URL картинки разными способами
-          let url = partner.Logo?.url;
-
-          if (!url) {
-            url = partner.Logo?.data?.attributes?.url;
-          }
-
-          // Если картинки нет — пропускаем
-          if (!url) return null;
-
-          const fullImageUrl = url.startsWith("http") ? url : `${API_URL}${url}`;
-
+          if (!partner.logoUrl) return null;
+          const fullImageUrl = partner.logoUrl.startsWith("http") ? partner.logoUrl : `${API_URL}${partner.logoUrl}`;
           return (
             <div key={partner.id} className="w-full flex justify-center p-4">
               <img
                 src={fullImageUrl}
-                alt={partner.Name}
+                alt={partner.name}
                 className="max-h-[80px] max-w-[160px] w-auto h-auto object-contain hover:scale-110 transition-transform duration-300"
               />
             </div>

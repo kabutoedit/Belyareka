@@ -2,7 +2,7 @@ import type { FC } from "react";
 
 const CDN_BASE = "https://belaya-reka-storage.fra1.digitaloceanspaces.com";
 const quotes = `${CDN_BASE}/assets/media/picture/quotes.svg`;
-const director = "/public/director.png";
+const director = "/director.png";
 
 const AboutFounderSection: FC = () => {
   return (

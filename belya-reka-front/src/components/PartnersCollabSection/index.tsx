@@ -7,15 +7,8 @@ import { $api, API_URL } from "../../api";
 
 interface Partner {
   id: number;
-  Name: string;
-  Logo?: {
-    url?: string;
-    data?: {
-      attributes?: {
-        url: string;
-      };
-    };
-  };
+  name: string;
+  logoUrl: string | null;
 }
 
 const PartnersCollabSection: FC = () => {
@@ -25,7 +18,12 @@ const PartnersCollabSection: FC = () => {
     $api
       .get("/partners?populate=*&sort=Order:asc")
       .then((response) => {
-        setPartners(response.data.data);
+        const mapped: Partner[] = response.data.data.map((item: any) => ({
+          id: item.id,
+          name: item.attributes.Name,
+          logoUrl: item.attributes.Logo?.data?.attributes?.url || null,
+        }));
+        setPartners(mapped);
       })
       .catch((err) => console.error("Ошибка API:", err));
   }, []);
@@ -47,21 +45,13 @@ const PartnersCollabSection: FC = () => {
 
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 2xl:mt-0 mt-10 items-center justify-items-center">
         {partners.map((partner) => {
-          let url = partner.Logo?.url;
-
-          if (!url) {
-            url = partner.Logo?.data?.attributes?.url;
-          }
-
-          if (!url) return null;
-
-          const fullImageUrl = url.startsWith("http") ? url : `${API_URL}${url}`;
-
+          if (!partner.logoUrl) return null;
+          const fullImageUrl = partner.logoUrl.startsWith("http") ? partner.logoUrl : `${API_URL}${partner.logoUrl}`;
           return (
             <div key={partner.id} className="w-full flex justify-center p-4">
               <img
                 src={fullImageUrl}
-                alt={partner.Name}
+                alt={partner.name}
                 className="max-h-[80px] max-w-[160px] w-auto h-auto object-contain hover:scale-110 transition-transform duration-300"
               />
             </div>
