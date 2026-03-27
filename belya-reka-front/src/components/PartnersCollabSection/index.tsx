@@ -41,7 +41,7 @@ const PartnersCollabSection: FC = () => {
 
       <Space height={"100px"} />
 
-      <LegendBelyaReka className="lg:mb-20 mb-10 uppercase">ТОРГОВЫЕ СЕТИ</LegendBelyaReka>
+      <LegendBelyaReka className="lg:mb-20 mb-10 uppercase">ПАРТНЕРЫ</LegendBelyaReka>
 
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 2xl:mt-0 mt-10 items-center justify-items-center">
         {partners.map((partner) => {

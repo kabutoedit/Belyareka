@@ -21,6 +21,8 @@ const AboutCompanySection: FC = () => {
     dispatch(getAboutCompany("ru"));
   }, [dispatch]);
 
+  console.log("aboutData:", aboutData, "loading:", loading);
+
   const sources = [
     {
       src: aboutData?.attributes.video_url || "",

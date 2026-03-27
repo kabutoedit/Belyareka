@@ -58,7 +58,7 @@ const PartnersForm: FC<IProps> = () => {
     <section className="w-full flex flex-col xl:flex-row gap-5 justify-between pb-1">
       <div className="w-full">
         <h2 className="text-4xl font-bold text-jetblack font-cocosignum">Стать партнером</h2>
-        <p className="text-lg w-11/12 mt-2">Заполните форму ниже, чтобы обсудить возможности для сотрудничества с компанией Белая река</p>
+        <p className="text-lg w-11/12 mt-2">Заполните форму, чтобы обсудить возможности для сотрудничествас компанией «Белая Река».</p>
       </div>
 
       <form className="flex flex-col w-full gap-5" onSubmit={handleSubmit(onSubmithandler)}>
@@ -120,7 +120,7 @@ const PartnersForm: FC<IProps> = () => {
             className="order-2 md:order-1 bg-hexahrome py-3 rounded-full active:outline-none outline-none button__focus text-white text-base w-[200px]">
             {isLoading ? "Отправка..." : "Отправить"}
           </button>
-          <p className="order-1 md:order-2 text-sm">Ваша заявка будет обработана конфиденциально и не передана третьим лицам</p>
+          <p className="order-1 md:order-2 text-sm">Вашу заявку обработают конфиденциально, она не будет передана третьим лицам.</p>
         </fieldset>
       </form>
     </section>

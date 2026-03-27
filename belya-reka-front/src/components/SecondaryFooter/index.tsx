@@ -43,7 +43,7 @@ const SecondaryFooter: FC = () => {
 
             <div className="pt-8 flex flex-col md:flex-row md:justify-between xl:flex-nowrap flex-wrap xl:gap-0 gap-y-4 z-50">
               <div>
-                <span className="text-base">© 2025-2030 Белая река </span>
+                <span className="text-base">© 2025-2030 "Белая река" </span>
                 <p className="xl:text-xs text-base">Политика защиты персональных данных</p>
               </div>
 
