@@ -12,7 +12,7 @@ import type { IProductCatalog } from "ts/types/common.interface";
 import BelyaRekaDescriptionCommon from "common/BelyaRekaDescriptionCommon";
 
 const CDN_BASE = "https://belaya-reka-storage.fra1.digitaloceanspaces.com";
-const STRAPI_URL = "http://localhost:1337";
+const STRAPI_URL = import.meta.env.VITE_STRAPI_URL;
 const arrow = `${CDN_BASE}/assets/media/svg/assortment_arrow_navigate.svg`;
 const arrowNew = `${CDN_BASE}/assets/media/svg/assortment_arrow_navigate_left.svg`;
 
@@ -27,10 +27,13 @@ const animationDuration = 0.3;
 async function fetchAllProducts(): Promise<IProductCatalog[]> {
   const pageSize = 100;
   const res = await fetch(`${STRAPI_URL}/api/products?populate=category&populate=image&pagination[pageSize]=${pageSize}`);
+
   const json = await res.json();
+  console.log(json);
+
   return json.data.map((item: any) => {
     const a = item.attributes;
-    const imageUrl = a.image?.data?.attributes?.url ? `${STRAPI_URL}${a.image.data.attributes.url}` : "";
+    const imageUrl = a.image?.data?.attributes?.url ?? "";
     const categoryName = a.category?.data?.attributes?.name ?? "";
     return {
       id: String(item.id),
