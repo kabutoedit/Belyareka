@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState, useCallback, useRef, useMemo, type FC } from "react";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import { Navigation } from "swiper/modules";
@@ -7,16 +8,14 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { twMerge } from "tailwind-merge";
 import NavAssortiment from "common/navAssortiment";
 import { container, items } from "data/mock";
-import { catalogElemMockNew } from "data/mock/assortment";
 import type { IProductCatalog } from "ts/types/common.interface";
 import BelyaRekaDescriptionCommon from "common/BelyaRekaDescriptionCommon";
-// CDN Base URL for DigitalOcean Spaces
-const CDN_BASE = "https://belaya-reka-storage.fra1.digitaloceanspaces.com";
 
+const CDN_BASE = "https://belaya-reka-storage.fra1.digitaloceanspaces.com";
+const STRAPI_URL = "http://localhost:1337";
 const arrow = `${CDN_BASE}/assets/media/svg/assortment_arrow_navigate.svg`;
 const arrowNew = `${CDN_BASE}/assets/media/svg/assortment_arrow_navigate_left.svg`;
 
-// Импорт стилей Swiper
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -25,10 +24,53 @@ type coor = "x" | "y" | "left" | "right" | "top" | "bottom";
 const animationTimingFunc: string = "easeInOut";
 const animationDuration = 0.3;
 
+async function fetchAllProducts(): Promise<IProductCatalog[]> {
+  const pageSize = 100;
+  const res = await fetch(`${STRAPI_URL}/api/products?populate=category&populate=image&pagination[pageSize]=${pageSize}`);
+  const json = await res.json();
+  return json.data.map((item: any) => {
+    const a = item.attributes;
+    const imageUrl = a.image?.data?.attributes?.url ? `${STRAPI_URL}${a.image.data.attributes.url}` : "";
+    const categoryName = a.category?.data?.attributes?.name ?? "";
+    return {
+      id: String(item.id),
+      title: a.name ?? "",
+      img: imageUrl,
+      imgns: imageUrl,
+      className: a.className ?? "",
+      isShow: a.isShow ?? false,
+      bg: a.bg ?? "",
+      category: categoryName,
+      textColor: undefined,
+      props_product: {
+        life_cycle: 10,
+        weight: 2.5,
+        volume: 2.5,
+        temperature_keep: "+2°C до +6°C",
+      },
+      price: 86,
+      old_price: 149,
+      starting_price: 86,
+      min: 10,
+      max: 50,
+      count: 0,
+    };
+  });
+}
+
 const BelyaRekaProductsSection: FC = () => {
+  const [allProducts, setAllProducts] = useState<IProductCatalog[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchAllProducts().then((data) => {
+      setAllProducts(data);
+      setLoading(false);
+    });
+  }, []);
+
   const refNavWidth = useRef<HTMLDivElement>(null);
   const [navWidth, setNavWidth] = useState(0);
-
   const refContainer = useRef<HTMLDivElement>(null);
   const refCoor = useRef<HTMLDivElement>(null);
   const [clickedItem, setClickedItem] = useState<boolean | null>(null);
@@ -44,17 +86,19 @@ const BelyaRekaProductsSection: FC = () => {
   const { width, height } = useWindowSize();
   const [locked, setLocked] = useLockedBody(false, "root");
 
-  // Безопасная фильтрация
   const filteredItem = useMemo(() => {
-    return catalogElemMockNew?.filter((product) => product.category === categories) || [];
-  }, [categories]);
-  const filteredItemCatalog = catalogElemMockNew?.filter((product) => product.isShow) || [];
+    return allProducts?.filter((product) => product.category === categories) || [];
+  }, [categories, allProducts]);
 
-  const [productStates, setProductStates] = useState(() => Array(filteredItemCatalog.length).fill(false));
+  const filteredItemCatalog = useMemo(() => allProducts?.filter((product) => product.isShow) || [], [allProducts]);
+
+  const [productStates, setProductStates] = useState<boolean[]>([]);
   const [activeProductIndex, setActiveProductIndex] = useState<number | null>(null);
 
-  // Ref for Tag Swiper
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  useEffect(() => {
+    setProductStates(Array(filteredItemCatalog.length).fill(false));
+  }, [filteredItemCatalog.length]);
+
   const swiperRef = useRef<any>(null);
 
   useEffect(() => {
@@ -69,7 +113,6 @@ const BelyaRekaProductsSection: FC = () => {
     (index: number) => {
       setProductStates((prevProductStates) => {
         const newProductStates = [...prevProductStates];
-        // Проверка на существование индекса
         if (newProductStates[index] !== undefined) {
           newProductStates[index] = !newProductStates[index];
         }
@@ -92,15 +135,12 @@ const BelyaRekaProductsSection: FC = () => {
 
   const [knowYourPlaceState, setKnowYourPlaceState] = useState(false);
 
-  // === ИСПРАВЛЕННАЯ ФУНКЦИЯ (Причина краша была здесь) ===
   const handleAnimateClick = (i: number, variant: "show" | "close") => {
     if (isMobile && isIpad) {
-      // Проверка на существование элемента
       if (filteredItemCatalog[i]) {
         setCleanElem(filteredItemCatalog[i]);
       }
     }
-
     if (variant === "show") {
       setShowProductDetail(true);
       setActiveProductIndex(i);
@@ -109,21 +149,15 @@ const BelyaRekaProductsSection: FC = () => {
       setBgColor(filteredItemCatalog[i]?.bg);
     } else {
       setShowProductDetail(false);
-      // УБРАНО: Логика обновления itemNumber при закрытии.
-      // Это вызывало конфликт с AnimatePresence и крашило сайт.
-      // Теперь окно просто закрывается обратно в исходную карточку.
     }
-
     const matchingItem = filteredItemCatalog[i];
     if (matchingItem) {
       setClickedIndex(i);
       toggleProductState(i);
       setLocked(!locked);
       setClickedItem(!clickedItem);
-      // setBgColor ставим только при открытии, чтобы при закрытии цвет не дергался
       if (variant === "show") setBgColor(matchingItem.bg);
     }
-
     setTimeout(() => {
       setClickedIndex(() => null);
     }, 1000);
@@ -145,27 +179,20 @@ const BelyaRekaProductsSection: FC = () => {
       const matchingIndex = filteredItemCatalog[hoveredItem]?.category;
       setCategories(matchingIndex);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hoveredItem, showProductDetail, isMobile, isIpad]);
 
-  // Logic to scroll Swiper
   useEffect(() => {
     if (!swiperRef.current || !cleanElem || !filteredItem || !swiperRef.current.swiper) return;
-
     const swiper = swiperRef.current.swiper;
     const index = filteredItem.findIndex((item) => item.id === cleanElem.id);
-
     if (index < 0 || !swiper.slides[index]) return;
-
     const slide = swiper.slides[index];
     const slideLeft = slide.offsetLeft;
     const slideWidth = slide.offsetWidth;
     const swiperWidth = swiper.width;
     const currentTranslate = -swiper.getTranslate();
-
     const isLeftHidden = slideLeft < currentTranslate;
     const isRightHidden = slideLeft + slideWidth > currentTranslate + swiperWidth;
-
     if (isRightHidden) {
       swiper.slideNext();
     } else if (isLeftHidden) {
@@ -174,7 +201,14 @@ const BelyaRekaProductsSection: FC = () => {
   }, [cleanElem, filteredItem]);
 
   const [hasMore, setHasMore] = useState(true);
-  const [newInfiniteItems, setNewInfiniteItems] = useState(filteredItemCatalog.slice(0, 4));
+  const [newInfiniteItems, setNewInfiniteItems] = useState<IProductCatalog[]>([]);
+
+  useEffect(() => {
+    if (filteredItemCatalog.length > 0) {
+      setNewInfiniteItems(filteredItemCatalog.slice(0, 4));
+      setHasMore(filteredItemCatalog.length > 4);
+    }
+  }, [filteredItemCatalog]);
 
   const loadMoreCatalogs = (itemsArray: IProductCatalog[], itemsPerPage: number) => {
     if (!Array.isArray(itemsArray)) return;
@@ -187,14 +221,13 @@ const BelyaRekaProductsSection: FC = () => {
     }
   };
 
-  // --- Logic for Big Arrows (Categories) ---
   const onPrevHandler = () => {
     if (activeProductIndex && activeProductIndex > 0) {
       const prevItem = filteredItemCatalog[activeProductIndex - 1];
       if (prevItem) {
         const matchingIndex = prevItem.category;
         setCategories(matchingIndex);
-        const qwert = catalogElemMockNew?.filter((product) => product.category === matchingIndex);
+        const qwert = allProducts?.filter((product) => product.category === matchingIndex);
         if (qwert && qwert.length > 0) setCleanElem(qwert[0]);
         setBgColor(prevItem.bg);
         setActiveProductIndex((prev) => prev && prev - 1);
@@ -209,7 +242,7 @@ const BelyaRekaProductsSection: FC = () => {
       if (nextItem) {
         const matchingIndex = nextItem.category;
         setCategories(matchingIndex);
-        setCleanElem(catalogElemMockNew?.filter((product) => product.category === matchingIndex)[0]);
+        setCleanElem(allProducts?.filter((product) => product.category === matchingIndex)[0]);
         setBgColor(nextItem.bg);
         setActiveProductIndex((prev) => (prev ?? 0) + 1);
       }
@@ -217,7 +250,6 @@ const BelyaRekaProductsSection: FC = () => {
     setKnowYourPlaceState(true);
   };
 
-  // --- Logic for Small Arrows (Tags) ---
   const onPrevTag = () => {
     if (!cleanElem || !filteredItem) return;
     const currentIndex = filteredItem.findIndex((item) => item.id === cleanElem.id);
@@ -258,8 +290,9 @@ const BelyaRekaProductsSection: FC = () => {
         transition: { duration: 0.5, ease: "easeInOut" },
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeProductIndex, knowYourPlaceState]);
+
+  if (loading) return null;
 
   return (
     <>
@@ -296,9 +329,8 @@ const BelyaRekaProductsSection: FC = () => {
               )}
 
               <div className="products-item__container flex flex-col relative z-[200] h-full w-full md:px-24 px-5">
-                {/* Top Section: Content + Big Arrows */}
                 <div className="flex-grow flex flex-wrap lg:items-center items-start content-center w-full h-full relative overflow-y-auto lg:overflow-y-visible">
-                  {catalogElemMockNew?.map((item, i: number) =>
+                  {allProducts?.map((item, i: number) =>
                     itemNumber === i
                       ? [
                           <NavAssortiment
@@ -306,11 +338,8 @@ const BelyaRekaProductsSection: FC = () => {
                             close={() => handleAnimateClick(i, "close")}
                             index={i}
                             className="w-full flex justify-between absolute top-0 z-50"
-                            // className="w-full flex justify-between absolute top-5 z-50"
                             ref={refNavWidth}
                           />,
-
-                          // --- BIG ARROWS (Categories) ---
                           <motion.div
                             key={`arrows-${i}`}
                             initial={{ opacity: 0 }}
@@ -326,7 +355,6 @@ const BelyaRekaProductsSection: FC = () => {
                                 <div className="size-10 sm:size-12 md:size-14 lg:size-[72px]" />
                               )}
                             </div>
-
                             {activeProductIndex !== filteredItemCatalog.length - 1 && (
                               <button
                                 onClick={onNextHandler}
@@ -336,8 +364,6 @@ const BelyaRekaProductsSection: FC = () => {
                               </button>
                             )}
                           </motion.div>,
-                          // ----------------------------------------------------------
-
                           productStates[i] && (
                             <>
                               <motion.div
@@ -356,10 +382,7 @@ const BelyaRekaProductsSection: FC = () => {
                                         initial={{ scale: 0.66 }}
                                         animate={{ scale: 1 }}
                                         exit={{ scale: 0.66, opacity: 0 }}
-                                        transition={{
-                                          ease: "easeOut",
-                                          duration: 0.3,
-                                        }}
+                                        transition={{ ease: "easeOut", duration: 0.3 }}
                                         className={"product-item__imgs product-item__imgs--active h-full w-full flex justify-center"}>
                                         <motion.div animate={controls} className="w-full h-full flex justify-center items-center py-4 lg:py-0">
                                           <LazyLoadImage
@@ -379,8 +402,6 @@ const BelyaRekaProductsSection: FC = () => {
                                   })}
                                 </AnimatePresence>
                               </motion.div>
-
-                              {/* Description */}
                               {filteredItem?.map((item, index) =>
                                 cleanElem?.id === item.id ? (
                                   <motion.div
@@ -409,7 +430,6 @@ const BelyaRekaProductsSection: FC = () => {
                   )}
                 </div>
 
-                {/* Bottom Section: Tags + Small Arrows */}
                 <motion.div
                   className="w-full flex items-center justify-center pb-8 pt-4 relative z-[60]"
                   initial={{ opacity: 0, y: 20 }}
@@ -422,7 +442,6 @@ const BelyaRekaProductsSection: FC = () => {
                       disabled={filteredItem && cleanElem && filteredItem.indexOf(cleanElem) === 0}>
                       <img src={arrow} alt="prev tag" className="w-4 h-3 sm:w-6 sm:h-5" />
                     </button>
-
                     <div className="flex-1 overflow-hidden mx-2 sm:mx-4">
                       <Swiper
                         ref={swiperRef}
@@ -436,11 +455,11 @@ const BelyaRekaProductsSection: FC = () => {
                           <SwiperSlide key={index} style={{ width: "auto" }}>
                             <motion.button
                               className={`product-button px-4 sm:px-6 py-2 rounded-full whitespace-nowrap transition-all duration-200 text-sm sm:text-base
-                                                  ${
-                                                    item.id === cleanElem?.id
-                                                      ? "bg-blue-500 text-white shadow-lg scale-105"
-                                                      : "bg-white text-gray-800 hover:bg-gray-100"
-                                                  }`}
+                                ${
+                                  item.id === cleanElem?.id
+                                    ? "bg-blue-500 text-white shadow-lg scale-105"
+                                    : "bg-white text-gray-800 hover:bg-gray-100"
+                                }`}
                               onClick={() => handleClick(index)}>
                               {item.title}
                             </motion.button>
@@ -448,7 +467,6 @@ const BelyaRekaProductsSection: FC = () => {
                         ))}
                       </Swiper>
                     </div>
-
                     <button onClick={onNextTag} className="pt-2 pb-1 bg-black rounded-full flex-shrink-0">
                       <div style={{ transform: "scaleX(-1)" }}>
                         <img src={arrow} alt="next tag" className="w-4 h-3 sm:w-6 sm:h-5" />

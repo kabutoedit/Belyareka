@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "kategoriis",
+  "info": {
+    "singularName": "kategorii",
+    "pluralName": "kategoriis",
+    "displayName": "Категории",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "bg": {
+      "type": "string"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "category"
+    }
+  }
+}

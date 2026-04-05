@@ -17,7 +17,6 @@ const prevBtn = `${CDN_BASE}/assets/media/svg/btn__prev.svg`;
 const nextBtn = `${CDN_BASE}/assets/media/svg/btn__next.svg`;
 
 import { $api, API_URL } from "../../api";
-import { log } from "console";
 
 interface CertificateImage {
   id: number;
