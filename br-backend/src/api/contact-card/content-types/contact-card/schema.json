@@ -4,20 +4,35 @@
   "info": {
     "singularName": "contact-card",
     "pluralName": "contact-cards",
-    "displayName": "Контакты / Карточки"
+    "displayName": "Контакты / Карточки",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "cityName": {
       "type": "string",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "order": {
       "type": "integer",
-      "default": 0
+      "default": 0,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "department": {
       "type": "relation",
@@ -28,7 +43,12 @@
     "contacts": {
       "type": "component",
       "repeatable": true,
-      "component": "contacts.contact-item"
+      "component": "contacts.contact-item",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

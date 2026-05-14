@@ -1,4 +1,5 @@
 import { type FC, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import YouTube from "react-youtube";
@@ -29,6 +30,7 @@ interface AestheticItem {
 }
 
 const YouTubeShortsSection: FC = () => {
+  const { t } = useTranslation();
   const [videos, setVideos] = useState<AestheticItem[]>([]);
 
   useEffect(() => {
@@ -51,7 +53,7 @@ const YouTubeShortsSection: FC = () => {
   return (
     <ContainerLayout className="estetics my-20">
       <Space height={"100px"} />
-      <LegendBelyaReka className="mb-10 font-cocosignum">Эстетика продукции "Белая Река"</LegendBelyaReka>
+      <LegendBelyaReka className="mb-10 font-cocosignum">{t("youtube.title")}</LegendBelyaReka>
 
       <Swiper
         className="relative flex justify-center items-center"

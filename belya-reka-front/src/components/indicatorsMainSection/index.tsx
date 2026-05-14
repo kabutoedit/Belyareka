@@ -1,5 +1,7 @@
 import { useInView } from "react-intersection-observer";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
+
 import LegendBelyaReka from "common/LegendBelyaReka";
 import LottieAnimationComponent from "components/LottieComponent";
 
@@ -8,6 +10,7 @@ import mapLottie from "assets/media/lottie/map.json";
 import Space from "common/Space";
 
 const OurIndicatorsSection: FC = () => {
+  const { t } = useTranslation();
   const [inViewRef, inView] = useInView({
     triggerOnce: false,
   });
@@ -16,7 +19,7 @@ const OurIndicatorsSection: FC = () => {
     <section className="mt-20">
       <Space height={"100px"} />
       <ContainerLayout>
-        <LegendBelyaReka className="font-cocosignum">НАШИ ПОКАЗАТЕЛИ</LegendBelyaReka>
+        <LegendBelyaReka className="font-cocosignum">{t("indicators.title")}</LegendBelyaReka>
 
         <div ref={inViewRef}>
           <LottieAnimationComponent loop={true} autoplay={inView} animationData={mapLottie}></LottieAnimationComponent>

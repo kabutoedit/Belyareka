@@ -1,4 +1,5 @@
 import { type FC, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import LegendBelyaReka from "common/LegendBelyaReka";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -31,6 +32,7 @@ interface CertificateData {
 }
 
 const CertificateMainSection: FC = () => {
+  const { t } = useTranslation();
   const isMobile = useMediaQuery("(max-width: 1023.98px)"); // for adaptive
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<CertificateData | null>(null);
@@ -65,7 +67,7 @@ const CertificateMainSection: FC = () => {
 
   return (
     <ContainerLayout className="mt-20">
-      <LegendBelyaReka className="font-cocosignum">Сертификаты</LegendBelyaReka>
+      <LegendBelyaReka className="font-cocosignum">{t("certificates.title")}</LegendBelyaReka>
       <div className="flex justify-between items-end mt-8 2xl:flex-nowrap flex-wrap">
         <span className="br-text-medium block leading-7 2xl:basis-3/4 w-full text-balance">{data?.title}</span>
         <p className="2xl:mt-0 mt-5 text-lg w-full text-balance">{data?.description}</p>

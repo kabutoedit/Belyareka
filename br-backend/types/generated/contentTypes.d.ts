@@ -1072,19 +1072,42 @@ export interface ApiContactCardContactCard extends Schema.CollectionType {
     singularName: 'contact-card';
     pluralName: 'contact-cards';
     displayName: '\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B / \u041A\u0430\u0440\u0442\u043E\u0447\u043A\u0438';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    cityName: Attribute.String & Attribute.Required;
-    order: Attribute.Integer & Attribute.DefaultTo<0>;
+    cityName: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    order: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<0>;
     department: Attribute.Relation<
       'api::contact-card.contact-card',
       'manyToOne',
       'api::contact-department.contact-department'
     >;
-    contacts: Attribute.Component<'contacts.contact-item', true>;
+    contacts: Attribute.Component<'contacts.contact-item', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1100,6 +1123,12 @@ export interface ApiContactCardContactCard extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::contact-card.contact-card',
+      'oneToMany',
+      'api::contact-card.contact-card'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1110,13 +1139,31 @@ export interface ApiContactDepartmentContactDepartment
     singularName: 'contact-department';
     pluralName: 'contact-departments';
     displayName: '\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B / \u041E\u0442\u0434\u0435\u043B\u044B';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    title: Attribute.String & Attribute.Required;
-    order: Attribute.Integer & Attribute.DefaultTo<0>;
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    order: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<0>;
     contact_cards: Attribute.Relation<
       'api::contact-department.contact-department',
       'oneToMany',
@@ -1137,6 +1184,12 @@ export interface ApiContactDepartmentContactDepartment
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::contact-department.contact-department',
+      'oneToMany',
+      'api::contact-department.contact-department'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1146,15 +1199,41 @@ export interface ApiContactRequestContactRequest extends Schema.CollectionType {
     singularName: 'contact-request';
     pluralName: 'contact-requests';
     displayName: '\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B / \u0424\u043E\u0440\u043C\u0430';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    name: Attribute.Text;
-    email: Attribute.Email;
-    message: Attribute.Text;
-    department: Attribute.String;
+    name: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    email: Attribute.Email &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    message: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    department: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1170,6 +1249,12 @@ export interface ApiContactRequestContactRequest extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::contact-request.contact-request',
+      'oneToMany',
+      'api::contact-request.contact-request'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1230,9 +1315,24 @@ export interface ApiKategoriiKategorii extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    name: Attribute.String;
-    bg: Attribute.String;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    bg: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     products: Attribute.Relation<
       'api::kategorii.kategorii',
       'oneToMany',
@@ -1253,6 +1353,12 @@ export interface ApiKategoriiKategorii extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::kategorii.kategorii',
+      'oneToMany',
+      'api::kategorii.kategorii'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1324,14 +1430,35 @@ export interface ApiPartnerPartner extends Schema.CollectionType {
     singularName: 'partner';
     pluralName: 'partners';
     displayName: '\u041F\u0430\u0440\u0442\u043D\u0435\u0440\u044B';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    Name: Attribute.String;
-    Logo: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    Order: Attribute.Integer;
+    Name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Logo: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Order: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1347,6 +1474,12 @@ export interface ApiPartnerPartner extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::partner.partner',
+      'oneToMany',
+      'api::partner.partner'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1356,16 +1489,47 @@ export interface ApiPartnerRequestPartnerRequest extends Schema.CollectionType {
     singularName: 'partner-request';
     pluralName: 'partner-requests';
     displayName: '\u041F\u0430\u0440\u0442\u043D\u0435\u0440\u0430\u043C / \u0424\u043E\u0440\u043C\u0430';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    name: Attribute.String;
-    email: Attribute.Email;
-    phone: Attribute.String;
-    companyName: Attribute.String;
-    message: Attribute.Text;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    email: Attribute.Email &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    phone: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    companyName: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    message: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1381,6 +1545,12 @@ export interface ApiPartnerRequestPartnerRequest extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::partner-request.partner-request',
+      'oneToMany',
+      'api::partner-request.partner-request'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1395,19 +1565,59 @@ export interface ApiProductProduct extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    name: Attribute.String;
-    className: Attribute.String;
-    isShow: Attribute.Boolean;
-    volume: Attribute.String;
-    weight: Attribute.String;
-    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    className: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    isShow: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    volume: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    weight: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     category: Attribute.Relation<
       'api::product.product',
       'manyToOne',
       'api::kategorii.kategorii'
     >;
-    bg: Attribute.String;
+    bg: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1423,6 +1633,12 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::product.product',
+      'oneToMany',
+      'api::product.product'
+    >;
+    locale: Attribute.String;
   };
 }
 

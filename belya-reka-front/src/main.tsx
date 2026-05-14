@@ -1,4 +1,5 @@
 import ReactDOM from "react-dom/client";
+import "./i18n";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "store/index.ts";
@@ -16,8 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     future={{
       v7_startTransition: true,
       v7_relativeSplatPath: true,
-    }}
-  >
+    }}>
     <Provider store={store}>
       <NotificationProvider>
         <App />

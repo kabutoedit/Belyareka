@@ -1,4 +1,5 @@
 "use client";
+import { useTranslation } from "react-i18next";
 import { useEffect, useState, useCallback, useRef, useMemo, type FC } from "react";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import { Navigation } from "swiper/modules";
@@ -62,6 +63,7 @@ async function fetchAllProducts(): Promise<IProductCatalog[]> {
 }
 
 const BelyaRekaProductsSection: FC = () => {
+  const { t } = useTranslation();
   const [allProducts, setAllProducts] = useState<IProductCatalog[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -352,7 +354,7 @@ const BelyaRekaProductsSection: FC = () => {
                             <div className="inline-flex pointer-events-auto pl-2 sm:pl-4 md:pl-10">
                               {activeProductIndex ? (
                                 <button onClick={onPrevHandler} className="p-0 hover:scale-110 transition-transform">
-                                  <img src={arrowNew} alt="arrow prev category" className="size-10 sm:size-12 md:size-14 lg:size-[72px]" />
+                                  <img src={arrowNew} alt={t("products.arrowPrev")} className="size-10 sm:size-12 md:size-14 lg:size-[72px]" />
                                 </button>
                               ) : (
                                 <div className="size-10 sm:size-12 md:size-14 lg:size-[72px]" />
@@ -363,7 +365,7 @@ const BelyaRekaProductsSection: FC = () => {
                                 onClick={onNextHandler}
                                 className="inline-flex pointer-events-auto pr-2 sm:pr-4 md:pr-10 p-0 hover:scale-110 transition-transform"
                                 style={{ transform: "scaleX(-1)" }}>
-                                <img src={arrowNew} alt="arrow next category" className="size-10 sm:size-12 md:size-14 lg:size-[72px]" />
+                                <img src={arrowNew} alt={t("products.arrowNext")} className="size-10 sm:size-12 md:size-14 lg:size-[72px]" />
                               </button>
                             )}
                           </motion.div>,
@@ -443,7 +445,7 @@ const BelyaRekaProductsSection: FC = () => {
                       onClick={onPrevTag}
                       className="pt-2 pb-1 bg-black rounded-full flex-shrink-0"
                       disabled={filteredItem && cleanElem && filteredItem.indexOf(cleanElem) === 0}>
-                      <img src={arrow} alt="prev tag" className="w-4 h-3 sm:w-6 sm:h-5" />
+                      <img src={arrow} alt={t("products.tagPrev")} className="w-4 h-3 sm:w-6 sm:h-5" />
                     </button>
                     <div className="flex-1 overflow-hidden mx-2 sm:mx-4">
                       <Swiper
@@ -472,7 +474,7 @@ const BelyaRekaProductsSection: FC = () => {
                     </div>
                     <button onClick={onNextTag} className="pt-2 pb-1 bg-black rounded-full flex-shrink-0">
                       <div style={{ transform: "scaleX(-1)" }}>
-                        <img src={arrow} alt="next tag" className="w-4 h-3 sm:w-6 sm:h-5" />
+                        <img src={arrow} alt={t("products.tagNext")} className="w-4 h-3 sm:w-6 sm:h-5" />
                       </div>
                     </button>
                   </div>
@@ -522,7 +524,7 @@ const BelyaRekaProductsSection: FC = () => {
           <button
             className="bg-hexahrome px-10 text-white py-5 rounded-full text-base font-semibold -z-0 mt-5 button__focus"
             onClick={() => loadMoreCatalogs(filteredItemCatalog, 4)}>
-            Показать еще
+            {t("products.loadMore")}
           </button>
         </div>
       )}

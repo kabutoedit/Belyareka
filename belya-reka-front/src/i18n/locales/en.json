@@ -1,0 +1,237 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "products": "Products",
+    "where": "Where to buy",
+    "partners": "Partners",
+    "contacts": "Contacts",
+    "news": "Press center",
+    "privacy": "Personal data protection policy"
+  },
+  "main": {
+    "pageTitle": "Home — Belaya Reka",
+    "productsTitle": "Products"
+  },
+  "about": {
+    "fallbackTitle": "ABOUT THE COMPANY",
+    "fallbackSubtitle": "placeholder text",
+    "fallbackDescription": "placeholder text",
+    "moreBtn": "Learn more",
+    "awards_title": "Awards",
+    "proud_title_1": "we are",
+    "proud_title_2": "proud",
+    "values_title_1": "Company",
+    "values_title_2": "values"
+  },
+  "products": {
+    "loadMore": "Load more",
+    "arrowPrev": "Previous category",
+    "arrowNext": "Next category",
+    "tagPrev": "Previous tag",
+    "tagNext": "Next tag"
+  },
+  "certificates": { "title": "Certificates" },
+  "youtube": { "title": "Aesthetics of Belaya Reka Products" },
+  "indicators": { "title": "OUR INDICATORS" },
+  "achiev": {
+    "peoples": "people employed",
+    "regions": "sales regions",
+    "cows": "cows provide us with milk",
+    "equipment": "units of equipment",
+    "land": "hectares of pasture land",
+    "shops": "stores",
+    "milk": "liters of milk",
+    "milkSuffix": "Tons"
+  },
+  "news": {
+    "title": "NEWS",
+    "goToNews": "Go to news",
+    "empty": "No news found"
+  },
+  "footer": {
+    "title": "Contacts",
+    "hotline": "Hotline",
+    "workHours": "Working hours: 7:30 to 22:00, seven days a week",
+    "sales_bishkek": "Sales department (Bishkek)",
+    "sales_osh": "Sales department (Osh)",
+    "sales_jalal": "Sales department (Jalal-Abad)",
+    "export": "Export department",
+    "hr": "HR department"
+  },
+  "aboutCount": {
+    "milk": "liters of milk",
+    "employees": "employees",
+    "land": "hectares of pasture land",
+    "regions": "sales regions"
+  },
+  "common": {
+    "loading": "Sending...",
+    "send": "Send",
+    "error": "An error occurred",
+    "reload": "Reload",
+    "try_again": "Please try again",
+    "cancel": "Cancel",
+    "ok": "Ok"
+  },
+  "product": {
+    "volume": "volume",
+    "fat": "fat",
+    "storage": "storage",
+    "temp_storage": "Storage temperature",
+    "units": {
+      "g": "g",
+      "percent": "%",
+      "days": "days"
+    }
+  },
+  "contacts": {
+    "title": "Contact Us",
+    "description": "Fill in the required fields so we can contact you or process your request",
+    "name": "Name",
+    "email": "Email",
+    "message": "Your message",
+    "success_msg": "Your application has been successfully sent!",
+    "error_msg": "An error occurred. Please try again.",
+    "required_name": "Name is required",
+    "required_email": "Email is required",
+    "invalid_email": "Enter a valid email",
+    "required_message": "Message is required",
+    "default_dept": "General inquiry"
+  },
+  "partners": {
+    "title": "Become a Partner",
+    "description": "Fill out the form to discuss cooperation opportunities with the Belaya Reka company.",
+    "phone": "Contact phone",
+    "company": "Company name",
+    "confidential": "Your application will be processed confidentially and will not be shared with third parties.",
+    "success_msg": "Thank you! We will contact you soon."
+  },
+  "notifications": {
+    "redirect": "You will be redirected to {{target}} in: {{count}}"
+  },
+  "errors": {
+    "boundary_title": "Something went wrong",
+    "boundary_desc": "Try to reload the page"
+  },
+  "founder": {
+    "quote": "“Belaya Reka” is a company with an open heart and a kind soul. Here, people work with love and care to provide you with real, delicious, and natural milk.",
+    "name": "Suyunduk Kadyrovich",
+    "company_position": "Founder of “Belaya Reka”"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error"
+  },
+  "contacts": {
+    "banner_desc_1": "Dairy products points of sale",
+    "banner_desc_2": "“Belaya Reka”, created on the principle “from field to counter”",
+    "no_department": "No Department"
+  },
+  "home": {
+    "fallback_milk_title": "Milk",
+    "fallback_milk_desc": "The magic of the morning starts with natural milk. It can be the basis for tender pancakes or cereal porridge - energy and a great mood are guaranteed!",
+    "fallback_sourcream_title": "Sour Cream",
+    "fallback_sourcream_desc": "A versatile product for your favorite dishes. A source of healthy proteins, moderate fats, and essential vitamins."
+  },
+  "partners": {
+    "principles_title": "PRINCIPLES OF COOPERATION",
+    "title": "PARTNERS",
+    "principles_list": [
+      {
+        "title": "Product Quality",
+        "descr": "We guarantee high quality standards at every stage of production.",
+        "img": "..."
+      },
+      {
+        "title": "Logistics",
+        "descr": "Prompt delivery of products to any point in the region by our own transport.",
+        "img": "..."
+      },
+      {
+        "title": "Support",
+        "descr": "Individual approach and marketing support for our partners.",
+        "img": "..."
+      }
+    ]
+  },
+  "press_center": {
+    "title": "NEWS",
+    "empty": "No news found"
+  },
+  "common": {
+    "step": "Stage",
+    "next": "Next"
+  },
+  "nav": {
+    "about": "About Us",
+    "contacts": "Contacts",
+    "press_center": "Press Center",
+    "where_to_buy": "Where to buy"
+  },
+  "footer": {
+    "company_name": "\"Belaya Reka\"",
+    "privacy_policy": "Privacy Policy"
+  },
+  "where_to_buy": {
+    "title": "WHERE TO BUY",
+    "all_areas": "All",
+    "no_points": "No points in this region",
+    "partners": "PARTNERS"
+  },
+  "production": {
+    "title": "PRODUCTION CYCLE",
+    "steps_list": [
+      {
+        "step": 1,
+        "label": "Milk Collection",
+        "description": "We carefully select raw materials from trusted farms, guaranteeing the purity and freshness of every drop.",
+        "img": "..."
+      },
+      {
+        "step": 2,
+        "label": "Laboratory Control",
+        "description": "Each batch undergoes strict testing for compliance with state quality and safety standards.",
+        "img": "..."
+      }
+    ]
+  },
+  "about_page": {
+    "seo_title": "About Belaya Reka",
+    "seo_description": "Belaya Reka Food Products unites milk processing enterprises from its own farms.",
+    "banner_title": "About Our Company",
+    "banner_description": "Belaya Reka is more than just milk. It is a story of purity, trust, and care, born in the very heart of Kyrgyzstan."
+  },
+  "contacts_page": {
+    "seo_title": "Contacts for Information — Belaya Reka Food Products"
+  },
+  "partners_page": {
+    "seo_title": "Information for Partners — Belaya Reka Food Products",
+    "banner_title": "Partners",
+    "banner_description": "Belaya Reka is aimed at fruitful partnerships based on a combination of mutual benefit and dynamic development"
+  },
+  "common": {
+    "loading": "Loading...",
+    "back": "Back"
+  },
+  "press_center": {
+    "all_news": "All News",
+    "not_found": "News not found",
+    "read_also": "READ ALSO"
+  },
+  "press_center": {
+    "seo_title": "Press Center — Belaya Reka",
+    "banner_title": "Press Center",
+    "banner_description": "We share the latest news of the Belaya Reka company honestly and openly"
+  },
+  "products_page": {
+    "seo_title": "Belaya Reka Dairy Products",
+    "banner_title": "Products",
+    "banner_description": "We form our product line taking into account different family needs: for breakfast, for snacks, for cooking dishes and desserts. At the core of each product is natural raw materials, quality control, and sophisticated production technology."
+  },
+  "where_to_buy_page": {
+    "seo_title": "Where to Buy Dairy Products — Belaya Reka",
+    "banner_title": "Where to Buy",
+    "banner_description": "Belaya Reka products are presented in retail chains and stores throughout Kyrgyzstan and are also available in Kazakhstan. We provide wide distribution so that your favorite products are always nearby."
+  }
+}
