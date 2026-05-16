@@ -12,14 +12,15 @@ import { getPrssCntr } from "store/slices/presscenterSlices";
 import { AppDispatch, RootState } from "store/index";
 
 const MainNewsSection: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const { presscenter } = useSelector((state: RootState) => state.presscenterSlice);
 
   useEffect(() => {
-    // Просто вызываем функцию, язык зашит внутри слайса (ru)
-    dispatch(getPrssCntr());
-  }, [dispatch]);
+    const currentLocale = i18n.language === "kgz" ? "ky" : i18n.language;
+
+    dispatch(getPrssCntr(currentLocale));
+  }, [dispatch, i18n.language]);
 
   const lastNews = presscenter ? presscenter.slice(0, 3) : [];
 

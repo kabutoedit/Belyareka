@@ -50,7 +50,7 @@ import { lazy, type FC } from "react";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 
-import AboutCompanySection from "components/AboutCompanySection";
+import { AboutCompanySection } from "components/AboutCompanySection";
 import { ErrorOfEdges } from "data/imports/imports.naming";
 import PageError from "common/pageError";
 import OurIndicatorsSection from "components/indicatorsMainSection";

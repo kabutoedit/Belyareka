@@ -98,7 +98,7 @@
 
 // export default AboutCompanySection;
 
-import { companyCartMainMock, i18n } from "data/mock/";
+import { i18n } from "data/mock/";
 import Plyr from "plyr-react";
 import { Link } from "react-router-dom";
 import { type FC, useEffect } from "react";
@@ -108,20 +108,44 @@ import "plyr-react/plyr.css";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
+import factoryLottie from "assets/media/lottie/factory.json";
+import shieldLottie from "assets/media/lottie/shield.json";
+import milkLottie from "assets/media/lottie/milk.json";
+
 import CartMainCommon from "common/cartMainCommon";
 import ContainerLayout from "layout/ContainerLayout";
 import LegendBelyaReka from "common/LegendBelyaReka";
 import { getAboutCompany } from "store/slices/aboutCompanySlice";
 import { AppDispatch, RootState } from "store/index";
-
-const AboutCompanySection: FC = () => {
+export const AboutCompanySection: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { aboutData, loading } = useSelector((state: RootState) => state.aboutCompanySlice);
   const { t, i18n: i18next } = useTranslation();
 
   useEffect(() => {
-    dispatch(getAboutCompany(i18next.language));
-  }, [dispatch, i18next.language]); // ← реагирует на смену языка
+    // Передаем текущий язык в запрос
+    const currentLocale = i18next.language === "kgz" ? "ky" : i18next.language;
+    dispatch(getAboutCompany(currentLocale));
+  }, [dispatch, i18next.language]);
+
+  // Массив карточек теперь берет тексты из JSON через t()
+  const companyCards = [
+    {
+      title: t("company_cards.products.title"),
+      descr: t("company_cards.products.description"),
+      animElem: milkLottie, // Оставляем переменную анимации как была
+    },
+    {
+      title: t("company_cards.production.title"),
+      descr: t("company_cards.production.description"),
+      animElem: factoryLottie,
+    },
+    {
+      title: t("company_cards.quality.title"),
+      descr: t("company_cards.quality.description"),
+      animElem: shieldLottie,
+    },
+  ];
 
   const sources = [
     {
@@ -136,7 +160,7 @@ const AboutCompanySection: FC = () => {
       <ContainerLayout className="about__container">
         <div className="overflow-hidden rounded-xl w-full">
           <div className="relative">
-            <Plyr source={{ type: "video", sources }} options={{ clickToPlay: true, autoplay: false, i18n: i18n, hideControls: false }} />
+            <Plyr source={{ type: "video", sources }} options={{ clickToPlay: true, autoplay: false, hideControls: false }} />
           </div>
         </div>
 
@@ -163,7 +187,8 @@ const AboutCompanySection: FC = () => {
         </div>
 
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mt-20">
-          {companyCartMainMock?.map((company, index) => (
+          {/* Используем новый массив с переводами */}
+          {companyCards.map((company, index) => (
             <CartMainCommon
               className="bg-air col-span-1 rounded-xl flex"
               key={index}
@@ -177,5 +202,3 @@ const AboutCompanySection: FC = () => {
     </section>
   );
 };
-
-export default AboutCompanySection;

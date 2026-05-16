@@ -164,7 +164,7 @@
 //   );
 // };
 
-// export default WhereBlock;
+// // export default WhereBlock;
 
 import { type FC, useEffect, useState } from "react";
 import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
@@ -216,22 +216,33 @@ const WhereBlock: FC = () => {
   const mapLang = i18n.language === "ru" ? "ru_RU" : i18n.language === "en" ? "en_US" : "ru_RU";
 
   useEffect(() => {
-    // Загружаем торговые точки с учетом языка
+    // Загружаем торговые точки (внутри слайса всегда ру-версия, если выбран кг)
     dispatch(getSalesPoints(i18n.language));
 
+    // Запрос партнеров вообще без привязки к локали — загрузит всегда!
     $api
-      .get(`/partners?populate=*&sort=Order:asc&locale=${i18n.language}`)
+      .get("/partners?populate=*&sort=Order:asc")
       .then((response) => {
-        const mapped: Partner[] = response.data.data.map((item: any) => ({
-          id: item.id,
-          name: item.attributes.Name || item.Name,
-          logoUrl: item.attributes?.Logo?.data?.attributes?.url || item.Logo?.url || null,
-        }));
+        if (!response.data?.data) {
+          setPartners([]);
+          return;
+        }
+
+        const mapped: Partner[] = response.data.data.map((item: any) => {
+          const attr = item.attributes || item;
+          // Ищем картинку в Logo или в logo на случай несовпадения регистра в Strapi
+          const logoUrl = attr?.Logo?.data?.attributes?.url || attr?.logo?.data?.attributes?.url || item.Logo?.url || null;
+
+          return {
+            id: item.id,
+            name: attr?.Name || attr?.name || "Partner",
+            logoUrl: logoUrl,
+          };
+        });
         setPartners(mapped);
       })
       .catch((err) => console.error("Ошибка API Partners:", err));
   }, [dispatch, i18n.language]);
-
   function selectedButtonArea(coordinates: number[], title: string) {
     setCoor(coordinates);
     setTitleArea(title);
@@ -252,14 +263,14 @@ const WhereBlock: FC = () => {
   return (
     <section>
       <Space height={"100px"} />
-      <LegendBelyaReka>{t("where_to_buy.title")}</LegendBelyaReka>
+      <LegendBelyaReka>{t("where_to_buy_page.title")}</LegendBelyaReka>
 
       {/* ОБЛАСТИ */}
       <div className="flex 2xl:gap-5 gap-3 flex-wrap md:mt-16 mt-5">
         <button
           className={`${titleArea === "all" ? classActiveButton : classDisableButton} ${classCustomButton} button__focus`}
           onClick={() => selectedButtonArea(DEFAULT_CENTER, "all")}>
-          {t("where_to_buy.all_areas")}
+          {t("where_to_buy_page.all_areas")}
         </button>
         {areas.map((btn) => (
           <button
@@ -272,7 +283,7 @@ const WhereBlock: FC = () => {
       </div>
 
       <LegendBelyaReka className="mt-16 md:mb-10 mb-5 block uppercase">
-        {titleArea === "all" ? t("where_to_buy.all_areas") : titleArea}
+        {titleArea === "all" ? t("where_to_buy_page.all_areas") : titleArea}
       </LegendBelyaReka>
 
       {/* РАЙОНЫ */}
@@ -286,7 +297,7 @@ const WhereBlock: FC = () => {
                 {btn.title}
               </button>
             ))
-          : titleArea !== "all" && <div className="text-gray-400">{t("where_to_buy.no_points")}</div>}
+          : titleArea !== "all" && <div className="text-gray-400">{t("where_to_buy_page.no_points")}</div>}
       </div>
 
       {/* КАРТА */}
@@ -320,7 +331,7 @@ const WhereBlock: FC = () => {
         </LazyLoadLayout>
       </div>
 
-      <LegendBelyaReka className="my-16 block uppercase">{t("where_to_buy.partners")}</LegendBelyaReka>
+      <LegendBelyaReka className="my-16 block uppercase">{t("where_to_buy_page.partners")}</LegendBelyaReka>
 
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 2xl:mt-0 mt-10 items-center justify-items-center">
         {partners.map((partner) => {

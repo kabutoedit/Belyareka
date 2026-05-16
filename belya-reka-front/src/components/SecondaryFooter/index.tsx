@@ -108,8 +108,8 @@ const SecondaryFooter: FC = () => {
   const navLink = [
     { link: about, title: t("nav.about"), isDesc: true },
     { link: contacts, title: t("nav.contacts"), isDesc: true },
-    { link: news, title: t("nav.press_center"), isDesc: true },
-    { link: where, title: t("nav.where_to_buy"), isDesc: true },
+    { link: news, title: t("nav.news"), isDesc: true },
+    { link: where, title: t("nav.where"), isDesc: true },
   ];
 
   if (["/", "/basket", "/profile"].includes(location.pathname)) return null;

@@ -47,25 +47,25 @@ export const partnersCollabMock = [
   },
 ];
 
-export const companyCartMainMock = [
-  {
-    title: "Продукция",
-    descr: "Наша специализация — производство сливочного масла, кисломолочной и кислородной продукции из чистого сырья.",
-    animElem: milkLottie,
-  },
-  {
-    title: "Производство",
-    descr:
-      "В 2012 году на территории завода было построено новое здание с современным оборудованием по переработке и фасовке молочной продукции. Предприятие работает в режиме полного цикла.",
-    animElem: factoryLottie,
-  },
-  {
-    title: "Качество",
-    descr:
-      "Высокое качество товара подтверждает международный стандарт ISO 22000 «Системы менеджмента безопасности пищевой продукции» и сертификат «Халяль».",
-    animElem: shieldLottie,
-  },
-];
+// export const companyCartMainMock = [
+//   {
+//     title: "Продукция",
+//     descr: "Наша специализация — производство сливочного масла, кисломолочной и кислородной продукции из чистого сырья.",
+//     animElem: milkLottie,
+//   },
+//   {
+//     title: "Производство",
+//     descr:
+//       "В 2012 году на территории завода было построено новое здание с современным оборудованием по переработке и фасовке молочной продукции. Предприятие работает в режиме полного цикла.",
+//     animElem: factoryLottie,
+//   },
+//   {
+//     title: "Качество",
+//     descr:
+//       "Высокое качество товара подтверждает международный стандарт ISO 22000 «Системы менеджмента безопасности пищевой продукции» и сертификат «Халяль».",
+//     animElem: shieldLottie,
+//   },
+// ];
 
 export const valuesCartMock = [
   {
@@ -426,12 +426,6 @@ export const steps = [
     img: values02,
   },
 ];
-
-/* DynamicsCompressorNode */
-
-// webm
-/* import showreelbr from "/assets/media/video/showreelbelyareka.webm"; */
-// import { postVerificationCode } from "store/slices/authSlice";
 
 export const sources = [
   {
