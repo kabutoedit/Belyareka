@@ -16,6 +16,7 @@ import leaf01 from "/assets/media/picture/leaf01.webp";
 
 const Element03: FC<SliderELement> = ({ activeSlide, durationSlide }) => {
   const isMobile = useMediaQuery("(max-width: 768.98px)");
+
   return (
     <AnimatePresence>
       {activeSlide && (
@@ -24,49 +25,29 @@ const Element03: FC<SliderELement> = ({ activeSlide, durationSlide }) => {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1.5, ease: "easeInOut" }}
           exit={{ opacity: 0, transition: { delay: 0.6 } }}
-          className="w-full h-[90vh] z-30 ">
-          <div className="absolute md:w-[800px] sm:w-[200px] w-[140px] bottom-10 left-72 sm:bottom-12 sm:left-80 -z-10">
-            <img
-              className="absolute h-[370px] bottom-0 -left-56 sm:h-[350px] sm:-bottom-5 sm:-left-48 lg:h-[400px] xl:h-[500px] xl:-left-40 2xl:h-[580px] 2xl:-bottom-2"
-              {...imageProps}
-              // src={`${httpsCoreUrl}certificates/kefir_common.webp`}
-              src={kefir}
-            />
-            {!isMobile && <img className="absolute bottom-0 w-40 right-0 md:w-64" src={nut} alt="nut" />}
+          className="w-full h-[100vh] z-30">
+          <div className="absolute w-full bottom-0 left-0 -z-10 h-0">
+            <div className="absolute bottom-0 left-72 sm:left-80">
+              <img
+                className="absolute bottom-0 -left-56 h-[370px] sm:h-[350px] lg:h-[400px] xl:h-[500px] xl:-left-40 2xl:h-[580px]"
+                {...imageProps}
+                src={kefir}
+              />
+              {!isMobile && <img className="absolute bottom-0 w-40 right-0 md:w-64" src={nut} alt="nut" />}
+            </div>
           </div>
 
           <div className="relative z-40">
             {!isMobile && <img className="absolute md:w-[160px] md:-right-20 md:top-72 xl:w-44" src={wallnut01} alt="image" />}
-            <img
-              className="absolute w-[121px] -top-5 -right-10  lg:w-40 xl:w-52 xl:-top-20 xl:right-20 2xl:w-60"
-              // src={`${httpsCoreUrl}certificates/leaf02.webp`}
-              src={leaf02}
-              alt="image"
-            />
+            <img className="absolute w-[121px] -top-5 -right-10 lg:w-40 xl:w-52 xl:-top-20 xl:right-20 2xl:w-60" src={leaf02} alt="image" />
             <img
               className="absolute w-[111px] right-36 -top-4 sm:right-80 lg:w-32 lg:right-[420px] xl:right-[550px] 2xl:w-36 2xl:right-[600px]"
-              // src={`${httpsCoreUrl}certificates/BROCCOLI_2.webp`}
               src={BROCCOLI_2}
               alt="image"
             />
-            <img
-              className="absolute w-48 -left-28 -top-20 lg:w-56 lg:-top-28 xl:w-60 xl:-left-[120px] 2xl:w-64"
-              // src={`${httpsCoreUrl}certificates/wallnut02.webp`}
-              src={wallnut02}
-              alt="image"
-            />
-            <img
-              className="absolute w-[124px] -left-20 top-72 xl:w-40 xl:-left-28 2xl:-left-20"
-              // src={`${httpsCoreUrl}certificates/leaf01.webp`}
-              src={leaf01}
-              alt="image"
-            />
-            <img
-              className="absolute w-[195px] -left-20 top-[650px] lg:w-56 lg:top-[660px] 2xl:top-[570px] 2xl:w-64 "
-              // src={`${httpsCoreUrl}certificates/wallnut03.webp`}
-              src={wallnut03}
-              alt="image"
-            />
+            <img className="absolute w-48 -left-28 -top-20 lg:w-56 lg:-top-28 xl:w-60 xl:-left-[120px] 2xl:w-64" src={wallnut02} alt="image" />
+            <img className="absolute w-[124px] -left-20 top-72 xl:w-40 xl:-left-28 2xl:-left-20" src={leaf01} alt="image" />
+            <img className="absolute w-[195px] -left-20 top-[650px] lg:w-56 lg:top-[660px] 2xl:top-[570px] 2xl:w-64" src={wallnut03} alt="image" />
           </div>
         </motion.div>
       )}
