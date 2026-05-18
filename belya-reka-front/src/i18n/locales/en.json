@@ -13,7 +13,15 @@
     "fallback_milk_title": "Milk",
     "fallback_milk_desc": "The magic of every morning begins with natural milk. Perfect as a base for delicate pancakes or wholesome porridge—energy and a great mood guaranteed.",
     "fallback_sourcream_title": "Sour cream",
-    "fallback_sourcream_desc": "A versatile ingredient for your favorite dishes. A source of healthy protein, moderate amounts of fat, and essential vitamins."
+    "fallback_sourcream_desc": "A versatile ingredient for your favorite dishes. A source of healthy protein, moderate amounts of fat, and essential vitamins.",
+    "fallback_biokefir_title": "Bio-Kefir",
+    "fallback_biokefir_desc": "Add juicy berries and transform a healthy drink into a delicious smoothie. Loved by both kids and adults!",
+    "fallback_yogurt_title": "Yogurt",
+    "fallback_yogurt_desc": "The easiest way to combine pleasure and wellness is to enjoy yogurt every day. We offer a variety of flavors—more taste, more benefits!",
+    "fallback_chalap_title": "Chalap",
+    "fallback_chalap_desc": "A traditional \"drink of longevity\" on your table—supporting strong health and an uplifting mood.",
+    "fallback_kefir_title": "Kefir",
+    "fallback_kefir_desc": "Staying active? This product deserves a top spot in your diet. It supports your health and helps you stay in shape."
   },
   "main": {
     "pageTitle": "Home — Belaya Reka",

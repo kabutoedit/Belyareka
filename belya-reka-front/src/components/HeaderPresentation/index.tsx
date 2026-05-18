@@ -212,7 +212,15 @@ import { useMediaQuery } from "usehooks-ts";
 import { useTranslation } from "react-i18next";
 
 const Element01 = lazy(() => import("components/HeaderElement/element01"));
-const Element02 = lazy(() => import("components/HeaderElement/element02"));
+// const Element02 = lazy(() => import("components/HeaderElement/element02"));
+const Element03 = lazy(() => import("components/HeaderElement/element03"));
+const Element04 = lazy(() => import("components/HeaderElement/element04"));
+const Element05 = lazy(() => import("components/HeaderElement/element05"));
+const Element06 = lazy(() => import("components/HeaderElement/element06"));
+// const Element07 = lazy(() => import("components/HeaderElement/element07"));
+// const Element08 = lazy(() => import("components/HeaderElement/element08"));
+// const Element09 = lazy(() => import("components/HeaderElement/element09"));
+// const Element10 = lazy(() => import("components/HeaderElement/element10"));
 
 import DynamicSlide from "components/HeaderElement/DynamicSlide";
 import { $api, API_URL } from "../../api";
@@ -224,7 +232,18 @@ const prevBtn = `${CDN_BASE}/assets/media/svg/btn__prev.svg`;
 const nextBtn = `${CDN_BASE}/assets/media/svg/btn__next.svg`;
 const table = `${CDN_BASE}/assets/media/picture/table 1.png`;
 
-const fallbackElements = [<Element01 key="el01" />, <Element02 key="el02" />];
+const fallbackElements = [
+  <Element01 key="el01" />,
+  // <Element02 key="el02" />,
+  <Element03 key="el03" />,
+  <Element04 key="el04" />,
+  <Element05 key="el05" />,
+  <Element06 key="el06" />,
+  // <Element07 key="el07" />,
+  // <Element08 key="el08" />,
+  // <Element09 key="el09" />,
+  // <Element10 key="el10" />,
+];
 const fallbackBackgroundColor = ["#1A7BD3", "#A0C282"];
 
 interface StrapiSlide {
@@ -245,16 +264,13 @@ const HeaderPresentation: FC = () => {
 
   const [strapiSlides, setStrapiSlides] = useState<StrapiSlide[]>([]);
 
-  // Локализованные fallback данные
   const localizedFallbackText = [
-    {
-      title: t("home.fallback_milk_title"),
-      description: t("home.fallback_milk_desc"),
-    },
-    {
-      title: t("home.fallback_sourcream_title"),
-      description: t("home.fallback_sourcream_desc"),
-    },
+    { title: t("home.fallback_milk_title"), description: t("home.fallback_milk_desc") },
+    { title: t("home.fallback_kefir_title"), description: t("home.fallback_kefir_desc") },
+    // { title: t("home.fallback_sourcream_title"), description: t("home.fallback_sourcream_desc") },
+    { title: t("home.fallback_biokefir_title"), description: t("home.fallback_biokefir_desc") },
+    { title: t("home.fallback_yogurt_title"), description: t("home.fallback_yogurt_desc") },
+    { title: t("home.fallback_chalap_title"), description: t("home.fallback_chalap_desc") },
   ];
 
   const slides = strapiSlides.length > 0 ? strapiSlides : null;
